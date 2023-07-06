@@ -13,9 +13,8 @@
 <div class="container">
 
 	<div class="my-3 p-3 bg-body rounded shadow-sm">
-		<h5 class="border-bottom pb-2 mb-0">Bienvenido a tu Sistema de registro de asistencia Scav On Time</h5>
+		<h5 class="border-bottom pb-2 mb-0">Pagina principal del proyecto.</h5>
 	</div>
-	<img src="image/Inicio.jpg" > 
 </div>
 
 

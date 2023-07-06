@@ -4,10 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import pe.edu.vallegrande.app.model.Student;
-import pe.edu.vallegrande.app.model.tesorero;
 
-public interface RowMapper<T> {
+public interface RowMapper2<T> {
 
-	tesorero mapRow(ResultSet rs) throws SQLException;
+	Student mapRow2(ResultSet rs) throws SQLException;
 	
 }

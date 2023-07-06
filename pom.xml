@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pe.edu.vallegrande</groupId>
-	<artifactId>AS221S3_T01</artifactId>
+	<artifactId>H221S3_19GabrielGutierrez</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>AS221S3_T01</name>
-	<description>T01_ScavOnTime</description>
+	<description>H221S3_19GabrielGutierrez</description>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 	<properties>
@@ -71,7 +71,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>ScavOnTime</finalName>
+		<finalName>H221S3_19GabrielGutierrez</finalName>
 		<pluginManagement>
 			<!-- lock down plugins versions to avoid using Maven defaults (may
 			be moved to parent pom) -->

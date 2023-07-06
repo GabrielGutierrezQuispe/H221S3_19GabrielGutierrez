@@ -3,7 +3,7 @@
          <div>
              <a href="#" class="nav__link nav__logo">
                  <i class='bx bxs-disc nav__icon' ></i>
-                 <span class="nav__logo-name">ScavOnTime</span>
+                 <span class="nav__logo-name">SOFGP</span>
              </a>
 
              <div class="nav__list">
@@ -19,9 +19,9 @@
                  <div class="nav__items">
                      <h3 class="nav__subtitle">Administración</h3>
 
-                     <a href="teacher.jsp" class="nav__link">
+                     <a href="tesorero.jsp" class="nav__link">
                          <i class='bx bxs-user-detail nav__icon'></i>
-                         <span class="nav__name">Docente</span>
+                         <span class="nav__name">Tesorero</span>
                      </a>
                      <a href="student.jsp" class="nav__link">
                          <i class='bx bxs-user nav__icon'></i>
@@ -30,15 +30,16 @@
                  </div>
                  
                  <div class="nav__items">
-                     <h3 class="nav__subtitle">Asistencias</h3>
+                     <h3 class="nav__subtitle">Gestionamiento</h3>
 
-                     <a href="studentAssistance.jsp" class="nav__link">
-                         <i class='bx bx-notepad nav__icon' ></i>
-                         <span class="nav__name">Estudiantes</span>
+                     <a href="" class="nav__link">
+                         <i class='bx bxs-school nav__icon'></i>
+                         <span class="nav__name">Pago</span>
                      </a>
-                     <a href="teacherAssistance.jsp" class="nav__link">
+                     </a>
+                     <a href="" class="nav__link">
                          <i class='bx bxs-file-doc nav__icon' ></i>
-                         <span class="nav__name">Docentes</span>
+                         <span class="nav__name">Reportes</span>
                      </a>
                  </div>
              </div>

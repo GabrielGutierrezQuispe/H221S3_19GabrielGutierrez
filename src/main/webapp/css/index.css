@@ -26,7 +26,7 @@
   --font-semi-bold: 600;
 
   /*========== z index ==========*/
-  --z-fixed: 10;
+  --z-fixed: 100;
 }
 
 @media screen and (min-width: 1024px) {

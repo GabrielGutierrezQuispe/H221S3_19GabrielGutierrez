@@ -16,7 +16,3 @@
 
 <!-- Navbar CSS -->
 <link rel="stylesheet" href="css/index.css">
-
-<!-- Mensaje flotante (Toast) -->
-<link rel="stylesheet" href="css/toast.css">
-

@@ -8,10 +8,11 @@ public class InsertStudentTest {
         try {
             // Crear objeto de estudiante
             Student student = new Student();
-            student.setDocumentNumber("98754783");
-            student.setNames("Gabrieñl");
+            student.setNames("Juan");
             student.setLastname("Pérez");
-            student.setEmail("juam.perez@vallegrande.edu.pe");
+            student.setEmail("juan.perez@vallegrande.edu.pe");
+            student.setDocument_type("DNI");
+            student.setDocument_number("32114753");
             student.setSemester("I");
             student.setCareer("Análisis de Sistemas");
             student.setActive("A");

@@ -9,12 +9,13 @@ public class UpdateStudentTest {
             // Crear objeto de estudiante
             Student student = new Student();
             student.setStudent_id(5); // ID del estudiante a actualizar
-            student.setDocumentNumber("70843742");
-            student.setNames("Pérez");
-            student.setLastname("Garcia");
-            student.setEmail("juan.perez@vallegrande.edu.pe");
-            student.setSemester("I");
-            student.setCareer("Análisis de Sistemas");
+            student.setNames("Juan");
+            student.setLastname("Chavez");
+            student.setEmail("juan.p@vallegrande.edu.pe");
+            student.setDocument_type("DNI");
+            student.setDocument_number("63438792");
+            student.setSemester("V");
+            student.setCareer("Produción Agraria");
             student.setActive("A");
 
             // Instanciar el servicio de estudiantes

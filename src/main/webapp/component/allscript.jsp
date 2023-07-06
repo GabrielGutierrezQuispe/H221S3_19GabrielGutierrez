@@ -19,9 +19,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/es.min.js"></script>
 
 <script>
-	//Establecer el idioma en español
+	//Establecer el idioma en espaï¿½ol
 	moment.locale('es');
 </script>
-
-<!-- Mensaje flotante (Toast) --> 
- <script type="text/javascript" src="js/toast.js"></script>

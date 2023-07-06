@@ -117,6 +117,12 @@
 								<div class="error-message" id="errorEmail"></div>
 								<div class="invalid-feedback" id="inputCorreoError"></div>
 							</div>
+							<div class="col-md-12 input-group-sm">
+								<label for="frmPasswords" class="form-label">Contraseña*</label> <input
+									type="text" class="form-control" id="frmPasswords" required>
+								<div class="error-message" id="errorPasswords"></div>
+								<div class="invalid-feedback" id="inputContraseñaError"></div>
+							</div>
 							<div class="col-md-4 input-group-sm">
 								<label for="frmDocument_type" class="form-label">Tipo
 									documento</label> <select class="form-select" aria-label="Seleccionar"
@@ -131,24 +137,7 @@
 								<div id="errorDocument_number" class="error-message"></div>
 								<div id="inputNumeroDocumentoError" class="invalid-feedback"></div>
 							</div>
-							<div class="col-md-4 input-group-sm">
-								<label for="frmSemester" class="form-label">Semestre</label> <select class="form-select" aria-label="Seleccionar"
-									id="frmSemester">
-									<option value="I">I</option>
-									<option value="II">II</option>
-									<option value="III">III</option>
-									<option value="IV">IV</option>
-									<option value="V">V</option>
-								</select>
-							</div>
-							<div class="col-md-4 input-group-sm">
-								<label for="frmCareer" class="form-label">Carrera</label> <select class="form-select" aria-label="Seleccionar"
-									id="frmCareer">
-									<option value="AnalisisSistemas">Análisis de Sistemas</option>
-									<option value="ProducionAgraria">Produción Agraria</option>
-								</select>
-							</div>
-
+							
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
@@ -161,7 +150,7 @@
 		</div>
 
 				<!-- 	Script para gestionar las funciones de esta vista -->
-				<script type="text/javascript" src="js/student.js"></script>
+				<script type="text/javascript" src="js/student1.js"></script>
 				<script type="text/javascript" src="js/studentExportaciones.js"></script>
 				<script type="text/javascript" src="js/studentValidation.js"></script>
 
