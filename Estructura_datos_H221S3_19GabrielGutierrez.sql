@@ -1,3 +1,8 @@
+-- Canbiamos el idioma
+SET LANGUAGE Español
+GO
+
+-- Para poder eliminar la base de datos, cambiamos de base de datos.
 USE master
 GO
 
@@ -17,33 +22,34 @@ GO
 SET DATEFORMAT dmy
 GO
 
------             CREAMOS LAS TABLAS 
-
----														-------Maestros
--- Table: student
-CREATE TABLE student (
-    student_id int  IDENTITY (1,1),
-    document_number char(9) UNIQUE,
-    names varchar(65)  NOT NULL,
-    lastname varchar(70)  NOT NULL,
-    email varchar(120)  NOT NULL UNIQUE,
-    semester char(3)  NOT NULL,
-    career varchar(50)  NOT NULL,
-    active char(1) DEFAULT ('A'),
-    CONSTRAINT student_pk PRIMARY KEY  (student_id)
-);
-
-                             ----Validaciones---- 
-ALTER TABLE student
-	ADD CONSTRAINT document_number_student
-	CHECK (document_number like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][^A-Z]')
+SELECT sysdatetime() as 'Fecha y  hora'
 GO
 
+
+
+															 --------MAESTRO1---------
+														 -- Creamos la TABLA ESTUDIANTE --
+CREATE TABLE student(
+    student_id int IDENTITY(1,1),
+	names varchar(60) NOT NULL,
+	lastname varchar(60) NOT NULL,
+	email varchar(120) NOT NULL UNIQUE,
+    document_type char(3) DEFAULT ('DNI'),
+    document_number char(9) NOT NULL UNIQUE,
+	semester char(5)  NOT NULL,
+    career varchar(50)  NOT NULL,
+    active char(1) DEFAULT ('A'),
+    CONSTRAINT student_pk PRIMARY KEY (student_id)
+)
+GO
+
+					--RESTRICCIONES
+
+-- agregamos Restriccion de solo letras en nobre y apellido
 ALTER TABLE student
 	ADD CONSTRAINT names_student
 	CHECK (names NOT LIKE '%[^a-zA-Z]%[^a-zA-Z]%[^a-zA-Z]%[^a-zA-Z]%')
 GO
-
 ALTER TABLE student
 	ADD CONSTRAINT lastname_student
 	CHECK (lastname NOT LIKE '%[^a-zA-Z]%[^a-zA-Z]%[^a-zA-Z]%[^a-zA-Z]%')
@@ -54,38 +60,60 @@ ALTER TABLE student
     CHECK (email LIKE '%@gmail.com' OR email LIKE '%@hotmail.com' OR email LIKE '%@outlook.com' OR email LIKE '%@yahoo.com' OR email LIKE '%@vallegrande.edu.pe')
 GO
 
+ALTER TABLE student
+	ADD CONSTRAINT document_number_student
+	CHECK (document_number like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][^A-Z]')
+GO
 
 ALTER TABLE student
 	ADD CONSTRAINT states_student 
 	CHECK(active ='A' OR active ='I')
 GO
+
+---No permite eliminar un registro si esta activo con disparador trigger
+-- Crear el disparador (trigger)
+CREATE TRIGGER active_student_trigger
+ON student
+INSTEAD OF DELETE
+AS
+BEGIN
+    -- Verificar si hay intento de eliminar un registro activo
+    IF EXISTS (
+        SELECT * FROM deleted WHERE active = 'A'
+    )
+    BEGIN
+        RAISERROR ('No se permite eliminar registros activos.', 16, 1)
+        ROLLBACK TRANSACTION
+        RETURN
+    END
+    ELSE
+    BEGIN
+        DELETE FROM student
+        WHERE student_id IN (SELECT student_id FROM deleted)
+    END
+END
+GO
 -- Table: administrative
-CREATE TABLE administrative (
-    administrative_id int  IDENTITY (1,1),
-    document_number char(9)  NOT NULL UNIQUE,
-    names varchar(65)  NOT NULL,
-    lastname varchar(70)  NOT NULL,
-    email varchar(120)  NOT NULL UNIQUE,
-    passwords varchar(50)  NOT NULL,
-    active char(1) DEFAULT ('A'),
-    CONSTRAINT administrative_pk PRIMARY KEY  (administrative_id)
-);
-			----Validaciones---- 
-ALTER TABLE administrative
-	ADD CONSTRAINT administrative_student 
-	CHECK(active ='A' OR active ='I')
+CREATE TABLE administrative(
+    administrative_id int IDENTITY(1,1),
+	names varchar(60) NOT NULL,
+	lastname varchar(60) NOT NULL,
+	email varchar(120) NOT NULL UNIQUE,
+    document_type char(3) DEFAULT ('DNI'),
+    document_number char(9) NOT NULL UNIQUE,
+	passwords varchar(50)  NOT NULL,
+	active char(1) DEFAULT ('A')
+    CONSTRAINT administrative_pk PRIMARY KEY (administrative_id)
+)
 GO
 
-ALTER TABLE administrative
-	ADD CONSTRAINT document_number_administrative
-	CHECK (document_number like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][^A-Z]')
-GO
+					--RESTRICCIONES
 
+-- agregamos Restriccion de solo letras en nobre y apellido
 ALTER TABLE administrative
 	ADD CONSTRAINT names_administrative
 	CHECK (names NOT LIKE '%[^a-zA-Z]%[^a-zA-Z]%[^a-zA-Z]%[^a-zA-Z]%')
 GO
-
 ALTER TABLE administrative
 	ADD CONSTRAINT lastname_administrative
 	CHECK (lastname NOT LIKE '%[^a-zA-Z]%[^a-zA-Z]%[^a-zA-Z]%[^a-zA-Z]%')
@@ -94,6 +122,16 @@ GO
 ALTER TABLE administrative
 	ADD CONSTRAINT email_administrative
     CHECK (email LIKE '%@gmail.com' OR email LIKE '%@hotmail.com' OR email LIKE '%@outlook.com' OR email LIKE '%@yahoo.com' OR email LIKE '%@vallegrande.edu.pe')
+GO
+
+ALTER TABLE administrative
+	ADD CONSTRAINT document_number_administrative
+	CHECK (document_number like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][^A-Z]')
+GO
+
+ALTER TABLE administrative
+	ADD CONSTRAINT states_administrative 
+	CHECK(active ='A' OR active ='I')
 GO
 							
 											----transaccionales---
@@ -121,7 +159,7 @@ CREATE TABLE payment (
     dates  date  NOT NULL DEFAULT GETDATE(),
     reference_number char(5)  NOT NULL,
     term_time date  NOT NULL DEFAULT GETDATE(),
-    states char(2),
+    states char(1) DEFAULT ('P'),
     CONSTRAINT payment_pk PRIMARY KEY  (id)
 );
 
@@ -135,54 +173,129 @@ GO
 
 ALTER TABLE payment
 	ADD CONSTRAINT states_payment
-	CHECK(states ='C' OR states ='D')  ---C=Cancelado D=Deuda
+	CHECK(states ='C' OR states ='D' OR states ='P')  ---C=Cancelado D=Deuda P=PENDIENTE
 GO
 
 
 				----------- insertar datos  ----------------
-				------student---
+				------administrative---
 INSERT INTO administrative
-		(document_number,names, lastname, email, passwords)
+		(names, lastname,email, document_number,passwords)
 VALUES
-		('76007178','Ariel','Landa Garrido','ariel.lamda@vallegrande.edu.pe','ariel2023'),
-		('75162542','Rosa','Rodriguez Ovidio','rosa.rodrigues@vallegrande.edu.pe','rosa2023'),
-		('73830737','Patricia','Cuenca Izaguirre','patricia.cuenca@vallegrande.edu.pe','patricia2023'),
-		('75165597','Rosendo','Baena Córdoba','rosendo.baena@vallegrande.edu.pe','rose3ndo2023'),
-		('71997493','Claudia','Jurado Carpio','cludia.jurado@vallegrande.edu.pe','claudia2023'),
-		('72893577','Pascual','Zabaleta Lombardi','pascual.zabaleta@vallegrande.edu.pe','pascual2023'),
-		('70145327','Silvio','Verdejo Campusano','silvio.verdejo@vallegrande.edu.pe','silvio2023'),
-		('71806086','Ezequiel','Jódar-Noriega Marqués','ezequiel.jorda@vallegrande.edu.pe','adelardo2023'),
-		('75261202','Adelardo','Novoa Carrión','adelardo.novoa@vallegrande.edu.pe','ezequiel2023'),
-		('70905459','Benjamín','Santana Calvo','benjamin.santa@vallegrande.edu.pe','benjamin2023'),
-		('72308430','Reyes','Barroso Padilla','reyes.barrosa@vallegrande.edu.pe','reyes2023'),
-		('23444355','Xiomara','Cañas Gordillo','xiomara.cañas@vallegrande.edu.pe','xiomara2023')
+		('Jose Megun', 'Cama la madrid','jose.cama@vallegrande.edu.pe', '7393147','jose2023'),
+		('Gabriel Esteban', 'Gutierrez Quispe','gabriel.gutierrez@vallegrande.edu.pe', '56743973','gabriel2023'),
+		('Mario luis', 'Flores Huaman','mario.flores@vallegrande.edu.pe', '67548475','mario2023'),
+		('Daniel Sebastian', 'Santa cruz Hinostroza','daniel.santa@vallegrande.edu.pe', '64892056','daniel2023'),
+		('Fernando Paolo', 'Rodriguez Mendoza','fernando.rodriguez@vallegrande.edu.pe', '32674896','fernamdo2023')
 
 	GO	
 -- Listamos la tabla estudiante.
 SELECT * FROM administrative
+GO
 
-				------administrative---
+				------student---
 INSERT INTO student
-		(document_number,names, lastname, email, semester, career)
+		(names, lastname,email, document_number,semester,career)
 VALUES
-		('76007178','Ariel','Landa Garrido','ariel.lamda@vallegrande.edu.pe','II','Análisis de Sistemas'),
-		('75162542','Rosa','Rodriguez Ovidio','rosa.rodrigues@vallegrande.edu.pe','I','Produción Agraria'),
-		('73830737','Patricia','Cuenca Izaguirre','patricia.cuenca@vallegrande.edu.pe','IV','Análisis de Sistemas'),
-		('75165597','Rosendo','Baena Córdoba','rosendo.baena@vallegrande.edu.pe','I','Producción Agraria'),
-		('71997493','Claudia','Jurado Carpio','cludia.jurado@vallegrande.edu.pe','II','Producción Agraria'),
-		('72893577','Pascual','Zabaleta Lombardi','pascual.zabaleta@vallegrande.edu.pe','II','Producción Agraria'),
-		('70145327','Silvio','Verdejo Campusano','silvio.verdejo@vallegrande.edu.pe','I','Análisis de Sistemas'),
-		('71806086','Ezequiel','Jódar-Noriega Marqués','ezequiel.jorda@vallegrande.edu.pe','IV','Análisis de Sistemas'),
-		('75261202','Adelardo','Novoa Carrión','adelardo.novoa@vallegrande.edu.pe','IV','Producción Agraria'),
-		('70905459','Benjamín','Santana Calvo','benjamin.santa@vallegrande.edu.pe','V','Análisis de Sistemas'),
-		('72308430','Reyes','Barroso Padilla','reyes.barrosa@vallegrande.edu.pe','I','Producción Agraria'),
-		('23444355','Xiomara','Cañas Gordillo','xiomara.cañas@vallegrande.edu.pe','IV','Producción Agraria')
+		('Jose Megun', 'Cama la madrid','jose.cama@gmail.com', '7393147','I','Análisis de Sistemas'),
+		('Gabriel Esteban', 'Gutierrez Quispe','gabriel.gutierrez@gmail.com', '56743973','II','Análisis de Sistemas'),
+		('Mario luis', 'Flores Huaman','mario.flores@gmail.com', '67548475','I','Produción Agraria'),
+		('Daniel Sebastian', 'Santa cruz Hinostroza','daniel.santa@gmail.com', '64892056','I','Análisis de Sistemas'),
+		('Fernando Paolo', 'Rodriguez Mendoza','fernando.rodriguez@gmail.com', '32674896','I','Produción Agraria')
 
 	GO	
--- Listamos la tabla estudiante.
+-- Listamos la tabla administrative.
 SELECT * FROM student
+GO
 
+							------Pago---
+INSERT INTO payment
+		(type_payment, amount, reference_number, states)
+VALUES
+		('E', 400.00, '00001', 'C'),
+		('T', 400.00, '00002', 'C'),
+		('E', 400.00, '00003', 'C'),
+		('E', 400.00, '00004', 'C'),
+		('E', 400.00, '00005', 'C')
 
+	GO	
+-- Listamos la tabla administrative.
+SELECT * FROM payment
+GO
+
+							------mensualidad---
+INSERT INTO Monthly_payment
+		(student_student_id, payment_id)
+VALUES
+		('1', '1'),
+		('2', '2'),
+		('3', '3'),
+		('4', '4'),
+		('5', '5')
+GO	
+-- Listamos la tabla Monthly_payment.
+SELECT * FROM Monthly_payment
+GO
+			-----LISTAR--
+---STUDENT
+CREATE VIEW List_Student AS
+SELECT student_id AS 'ID', CONCAT(lastname, ' ', names) AS 'ESTUDIANTE', email AS 'CORREO', document_type AS 'T DOCUMENTO', document_number AS 'N° DOCUMENTO', semester AS 'SEMESTRE', career AS 'CARRERA', active AS 'ESTADO'
+FROM student;
+GO
+
+SELECT * FROM List_Student
+GO
+
+---ADMINISTRATIVE
+CREATE VIEW List_Administrative AS
+SELECT administrative_id AS 'ID', CONCAT(lastname, ' ', names) AS 'TESORERO', email AS 'CORREO', document_type AS 'T DOCUMENTO', document_number AS 'N° DOCUMENTO',passwords AS 'CONTRASEÑA', active AS 'ESTADO'
+FROM administrative;
+GO
+
+SELECT * FROM List_Administrative
+GO
+
+---- Pago
+CREATE VIEW List_payment AS
+SELECT
+    id AS ID,
+    CASE 
+        WHEN type_payment = 'E' THEN 'Efectivo'
+        WHEN type_payment = 'T' THEN 'Tarjeta'
+    END AS "Tipo Pago",
+    CONCAT('S/ ', ROUND(amount * 1, 2)) AS CANTIDAD,
+    dates AS "FEC PAGO",
+    reference_number AS "N° PAGO",
+    term_time AS "ULTIMO PLAZO",
+    CASE 
+        WHEN states = 'C' THEN 'Cancelado'
+        WHEN states = 'D' THEN 'Deuda'
+        WHEN states = 'P' THEN 'Pendiente'
+    END AS ESTADO
+FROM payment;
+GO
+
+SELECT * FROM List_payment
+GO
+
+CREATE VIEW List_Mensualidad AS
+SELECT
+    mp.id,
+	s.document_number AS 'N° DOCUMENTO',
+    CONCAT(s.names, ' ', s.lastname) AS Estudiante,
+    CONCAT(' S/', p.amount) AS Cantidad,
+    p.dates AS "FEC PAGO",
+    CASE 
+        WHEN mp.active = 'A' THEN 'Activo'
+        WHEN mp.active = 'I' THEN 'Inactivo'
+    END AS Estado
+FROM Monthly_payment mp
+JOIN Student s ON s.student_id = mp.student_student_id
+JOIN Payment p ON p.id = mp.payment_id;
+GO
+
+SELECT * FROM List_Mensualidad
+GO
 -- foreign keys
 -- Reference: Monthly_payment_payment (table: Monthly_payment)
 ALTER TABLE Monthly_payment ADD CONSTRAINT Monthly_payment_payment
@@ -195,4 +308,3 @@ ALTER TABLE Monthly_payment ADD CONSTRAINT Monthly_payment_student
     REFERENCES student (student_id);
 
 -- End of file.
-
