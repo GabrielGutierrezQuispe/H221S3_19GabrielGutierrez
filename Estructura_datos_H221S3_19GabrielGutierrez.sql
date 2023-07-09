@@ -1,5 +1,5 @@
 -- Canbiamos el idioma
-SET LANGUAGE Español
+SET LANGUAGE EspaÃ±ol
 GO
 
 -- Para poder eliminar la base de datos, cambiamos de base de datos.
@@ -182,13 +182,12 @@ GO
 INSERT INTO administrative
 		(names, lastname,email, document_number,passwords)
 VALUES
-		('Jose Megun', 'Cama la madrid','jose.cama@vallegrande.edu.pe', '7393147','jose2023'),
-		('Gabriel Esteban', 'Gutierrez Quispe','gabriel.gutierrez@vallegrande.edu.pe', '56743973','gabriel2023'),
-		('Mario luis', 'Flores Huaman','mario.flores@vallegrande.edu.pe', '67548475','mario2023'),
-		('Daniel Sebastian', 'Santa cruz Hinostroza','daniel.santa@vallegrande.edu.pe', '64892056','daniel2023'),
-		('Fernando Paolo', 'Rodriguez Mendoza','fernando.rodriguez@vallegrande.edu.pe', '32674896','fernamdo2023')
+		('Henry Gustavo', 'Hinostroza Gutierrez','ghistroza@vallegrande.edu.pe', '56237238','henry2023'),
+		('Gabriel Esteban', 'Santos Pablo','spablo@vallegrande.edu.pe', '527387439','santos2023'),
+		('Luis Owen', 'Huaman Bermat','lhuman@vallegrande.edu.pe', '6723893','luis2023'),
+		('Sebastian', 'Hinostroza Luyo','shinostroza@vallegrande.edu.pe', '43749501','sebastian2023')
 
-	GO	
+	GO		
 -- Listamos la tabla estudiante.
 SELECT * FROM administrative
 GO
@@ -197,11 +196,11 @@ GO
 INSERT INTO student
 		(names, lastname,email, document_number,semester,career)
 VALUES
-		('Jose Megun', 'Cama la madrid','jose.cama@gmail.com', '7393147','I','Análisis de Sistemas'),
-		('Gabriel Esteban', 'Gutierrez Quispe','gabriel.gutierrez@gmail.com', '56743973','II','Análisis de Sistemas'),
-		('Mario luis', 'Flores Huaman','mario.flores@gmail.com', '67548475','I','Produción Agraria'),
-		('Daniel Sebastian', 'Santa cruz Hinostroza','daniel.santa@gmail.com', '64892056','I','Análisis de Sistemas'),
-		('Fernando Paolo', 'Rodriguez Mendoza','fernando.rodriguez@gmail.com', '32674896','I','Produción Agraria')
+		('Jose Megun', 'Cama la madrid','jose.cama@gmail.com', '73931475','I','AnÃ¡lisis de Sistemas'),
+		('Gabriel Esteban', 'Gutierrez Quispe','gabriel.gutierrez@gmail.com', '56743973','II','AnÃ¡lisis de Sistemas'),
+		('Mario luis', 'Flores Huaman','mario.flores@gmail.com', '67548475','I','ProduciÃ³n Agraria'),
+		('Daniel Sebastian', 'Santa cruz Hinostroza','daniel.santa@gmail.com', '64892056','I','AnÃ¡lisis de Sistemas'),
+		('Fernando Paolo', 'Rodriguez Mendoza','fernando.rodriguez@gmail.com', '32674896','I','ProduciÃ³n Agraria')
 
 	GO	
 -- Listamos la tabla administrative.
@@ -239,7 +238,7 @@ GO
 			-----LISTAR--
 ---STUDENT
 CREATE VIEW List_Student AS
-SELECT student_id AS 'ID', CONCAT(lastname, ' ', names) AS 'ESTUDIANTE', email AS 'CORREO', document_type AS 'T DOCUMENTO', document_number AS 'N° DOCUMENTO', semester AS 'SEMESTRE', career AS 'CARRERA', active AS 'ESTADO'
+SELECT student_id AS 'ID', CONCAT(lastname, ' ', names) AS 'ESTUDIANTE', email AS 'CORREO', document_type AS 'T DOCUMENTO', document_number AS 'NÂ° DOCUMENTO', semester AS 'SEMESTRE', career AS 'CARRERA', active AS 'ESTADO'
 FROM student;
 GO
 
@@ -248,7 +247,7 @@ GO
 
 ---ADMINISTRATIVE
 CREATE VIEW List_Administrative AS
-SELECT administrative_id AS 'ID', CONCAT(lastname, ' ', names) AS 'TESORERO', email AS 'CORREO', document_type AS 'T DOCUMENTO', document_number AS 'N° DOCUMENTO',passwords AS 'CONTRASEÑA', active AS 'ESTADO'
+SELECT administrative_id AS 'ID', CONCAT(lastname, ' ', names) AS 'TESORERO', email AS 'CORREO', document_type AS 'T DOCUMENTO', document_number AS 'NÂ° DOCUMENTO',passwords AS 'CONTRASEÃ‘A', active AS 'ESTADO'
 FROM administrative;
 GO
 
@@ -265,7 +264,7 @@ SELECT
     END AS "Tipo Pago",
     CONCAT('S/ ', ROUND(amount * 1, 2)) AS CANTIDAD,
     dates AS "FEC PAGO",
-    reference_number AS "N° PAGO",
+    reference_number AS "NÂ° PAGO",
     term_time AS "ULTIMO PLAZO",
     CASE 
         WHEN states = 'C' THEN 'Cancelado'
@@ -281,7 +280,7 @@ GO
 CREATE VIEW List_Mensualidad AS
 SELECT
     mp.id,
-	s.document_number AS 'N° DOCUMENTO',
+	s.document_number AS 'NÂ° DOCUMENTO',
     CONCAT(s.names, ' ', s.lastname) AS Estudiante,
     CONCAT(' S/', p.amount) AS Cantidad,
     p.dates AS "FEC PAGO",
