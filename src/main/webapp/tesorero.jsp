@@ -15,7 +15,7 @@
 
 		<!-- Card de datos de entrada -->
 		<div class="my-3 p-3 bg-body rounded shadow-sm">
-			<h5 class="border-bottom pb-2 mb-0">Estudiante</h5>
+			<h5 class="border-bottom pb-2 mb-0">Administrador</h5>
 			<div class="row mt-3">
 
 				<div class="col-md-5">
@@ -73,8 +73,7 @@
 						<th scope="col">Correo</th>
 						<th scope="col" class="text-center">Tipo Documento</th>
 						<th scope="col">N° Documento</th>
-						<th scope="col">Semestre</th>
-						<th scope="col">Carrera</th>
+						<th scope="col">Contraseña</th>
 						<th scope="col">Acciones</th>
 					</tr>
 				</thead>
@@ -97,7 +96,7 @@
 					<div class="modal-body">
 						<form class="row g-2" id="formEstudiantes">
 							<input type="hidden" id="accion" name="accion"> <input
-								type="hidden" class="form-control" id="frmStudent_id">
+								type="hidden" class="form-control" id="frmAdministrative_id">
 							<div class="col-md-12 input-group-sm">
 								<label for="frmNames" class="form-label">Nombres*</label> <input
 									type="text" class="form-control" id="frmNames" required>
@@ -118,8 +117,9 @@
 								<div class="invalid-feedback" id="inputCorreoError"></div>
 							</div>
 							<div class="col-md-12 input-group-sm">
-								<label for="frmPasswords" class="form-label">Contraseña*</label> <input
-									type="text" class="form-control" id="frmPasswords" required>
+								<label for="frmPasswords" class="form-label">Contraseña*</label>
+								<input type="" class="form-control" id="frmPasswords"
+									required>
 								<div class="error-message" id="errorPasswords"></div>
 								<div class="invalid-feedback" id="inputContraseñaError"></div>
 							</div>
@@ -137,23 +137,25 @@
 								<div id="errorDocument_number" class="error-message"></div>
 								<div id="inputNumeroDocumentoError" class="invalid-feedback"></div>
 							</div>
-							
+
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal" id="btnCancelar">Cancelar</button>
-							<button type="submit" class="btn btn-primary" id="btnGuardar">Guardar</button>
+							<button type="submit" class="btn btn-primary" id="btnGuardar"
+								disabled>Guardar</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-				<!-- 	Script para gestionar las funciones de esta vista -->
-				<script type="text/javascript" src="js/student1.js"></script>
-				<script type="text/javascript" src="js/studentExportaciones.js"></script>
-				<script type="text/javascript" src="js/studentValidation.js"></script>
+	<!-- 	Script para gestionar las funciones de esta vista -->
+	<script type="text/javascript" src="js/tesorero.js"></script>
+	<script type="text/javascript" src="js/studentExportaciones.js"></script>
+	<script type="text/javascript" src="js/studentValidation.js"></script>
 
-				<%@include file="component/allscript.jsp"%>
+	<%@include file="component/allscript.jsp"%>
 </body>
 </html>

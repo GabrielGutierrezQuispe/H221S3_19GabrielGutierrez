@@ -4,8 +4,8 @@ const ACCION_EDITAR = "EDITAR";
 let soloActivos = 'A';
 
 // Acceder a control de boton buscar
-let btnBuscarTesorero = document.getElementById('btnBuscar');
-btnBuscarTesorero.addEventListener('click', fnBuscarTesorero);
+let btnBuscarEstudiante = document.getElementById('btnBuscar');
+btnBuscarEstudiante.addEventListener('click', fnBuscarEstudiante);
 
 
 let timeoutId;
@@ -25,9 +25,9 @@ searchValue.addEventListener('keyup', function() {
 	}, 500);
 });
 
-searchValue.addEventListener('search', fnBuscarTesorero);
+searchValue.addEventListener('search', fnBuscarEstudiante);
 
-searchCriteria.addEventListener('change', fnBuscarTesorero);
+searchCriteria.addEventListener('change', fnBuscarEstudiante);
 
 // Acceder al control de botón de activar y desactivar
 let btnInactivoEstudiante = document.getElementById('chkInactivos');
@@ -52,7 +52,7 @@ function fnCrearEstudiante() {
 	modal.show();
 
 	document.getElementById("accion").value = ACCION_NUEVO;
-	document.getElementById('estudianteModalLabel').innerHTML = 'Crear nuevo estudiante';
+	document.getElementById('estudianteModalLabel').innerHTML = 'Crear nuevo Tesorero';
 }
 
 // Acceder a control de boton guardar
@@ -67,8 +67,7 @@ function limpiarFormulario() {
 	document.getElementById("frmEmail").value = "";
 	document.getElementById("frmDocument_type").value = "";
 	document.getElementById("frmDocument_number").value = "";
-	document.getElementById("frmSemester").value = "";
-	document.getElementById("frmCareer").value = "";
+	document.getElementById("frmPasswords").value = "";
 
 }
 
@@ -83,8 +82,7 @@ function fnProcesarEstudiante() {
 	datos += "&email=" + document.getElementById("frmEmail").value;
 	datos += "&document_type=" + document.getElementById("frmDocument_type").value;
 	datos += "&document_number=" + document.getElementById("frmDocument_number").value;
-	datos += "&semester=" + document.getElementById("frmSemester").value;
-	datos += "&career=" + document.getElementById("frmCareer").value;
+	datos += "&passwords=" + document.getElementById("frmPasswords").value;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open('POST', 'TesoreroProcesar', true);
@@ -111,7 +109,7 @@ function fnProcesarEstudiante() {
 }
 
 // Funcion para buscar estudiantes
-function fnBuscartesorero() {
+function fnBuscarEstudiante() {
 	console.log('Buscando.......');
 
 	// Preparando la URL
@@ -134,9 +132,9 @@ function fnBuscartesorero() {
 						<td>${item.names}</td>
 						<td>${item.lastname}</td>
 						<td>${item.email}</td>
-						<td>${item.passwords}</td>
 						<td class="text-center">${item.document_type}</td>
 						<td>${item.document_number}</td>
+						<td>${item.passwords}</td>
 						<td>
 							<div class='d-flex gap-2'>
 									${obtenerBtnEditar(item.administrative_id)}
@@ -192,7 +190,7 @@ function abrirModalConfirmar(administrative_id) {
 function fnEliminar(administrative_id) {
 	console.log('administrative_id: ', administrative_id);
 
-	let datos = 'administrative_id=' + student_id;
+	let datos = 'administrative_id=' + administrative_id;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open('POST', 'TesoreroEliminar', true);
@@ -203,7 +201,7 @@ function fnEliminar(administrative_id) {
 			fnBuscarEstudiante();
 
 			// Mostrar la alerta flotante al eliminar con éxito
-			showFloatingAlert('El estudiante ha sido eliminado correctamente');
+			showFloatingAlert('Eliminado correctamente');
 		}
 	};
 	xhr.send(datos);
@@ -224,7 +222,7 @@ function fnActivar(administrative_id) {
 			actualizarEstudianteActivo(administrative_id);
 
 			// Mostrar la alerta flotante al eliminar con éxito
-			showFloatingAlert('Estudiante activado correctamente');
+			showFloatingAlert('Activado correctamente');
 		}
 	};
 	xhr.send(datos);
@@ -270,14 +268,13 @@ function fnCargarForm(administrative_id) {
 
 	if (estudiante) {
 		// Asignar los valores del estudiante al formulario de edicion
-		document.getElementById("frmAdministrative_id").value = estudiante.student_id;
+		document.getElementById("frmAdministrative_id").value = estudiante.administrative_id;
 		document.getElementById("frmNames").value = estudiante.names;
 		document.getElementById("frmLastname").value = estudiante.lastname;
 		document.getElementById("frmEmail").value = estudiante.email;
 		document.getElementById("frmDocument_type").value = estudiante.document_type;
 		document.getElementById("frmDocument_number").value = estudiante.document_number;
-		document.getElementById("frmSemester").value = estudiante.semester;
-		document.getElementById("frmCareer").value = estudiante.career;
+		document.getElementById("frmPasswords").value = estudiante.passwords;
 	} else {
 		console.log("Estudiante no encontrado");
 	}
@@ -290,8 +287,7 @@ function fnLimpiarForm() {
 	document.getElementById("frmEmail").value = "";
 	document.getElementById("frmDocument_type").value = "";
 	document.getElementById("frmDocument_number").value = "";
-	document.getElementById("frmSemester").value = "";
-	document.getElementById("frmCareer").value = "";
+	document.getElementById("frmPasswords").value = "";
 }
 
 // Obtener referencia al formulario

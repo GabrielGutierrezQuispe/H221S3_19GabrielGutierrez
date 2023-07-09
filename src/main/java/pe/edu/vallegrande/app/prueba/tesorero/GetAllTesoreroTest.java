@@ -11,15 +11,15 @@ public class GetAllTesoreroTest {
             CrudTesoreroService tesoreroService = new CrudTesoreroService();
             List<tesorero> lista = tesoreroService.getAll();
             if (!lista.isEmpty()) {
-                System.out.println("Lista de Estudiantes:");
+                System.out.println("Lista de administrador:");
                 for (tesorero tesorero : lista) {
                     System.out.println(tesorero);
                 }
             } else {
-                System.out.println("No se encontraron Estudiantes.");
+                System.out.println("No se encontraron administrador.");
             }
         } catch (Exception e) {
-            System.err.println("Error al obtener la lista de estudiantes: " + e.getMessage());
+            System.err.println("Error al obtener la lista de administrador: " + e.getMessage());
         }
     }
 }

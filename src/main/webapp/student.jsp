@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <%@include file="component/allcss.jsp"%>
@@ -132,8 +132,8 @@
 								<div id="inputNumeroDocumentoError" class="invalid-feedback"></div>
 							</div>
 							<div class="col-md-4 input-group-sm">
-								<label for="frmSemester" class="form-label">Semestre</label> <select class="form-select" aria-label="Seleccionar"
-									id="frmSemester">
+								<label for="frmSemester" class="form-label">Semestre</label> <select
+									class="form-select" aria-label="Seleccionar" id="frmSemester">
 									<option value="I">I</option>
 									<option value="II">II</option>
 									<option value="III">III</option>
@@ -142,10 +142,10 @@
 								</select>
 							</div>
 							<div class="col-md-4 input-group-sm">
-								<label for="frmCareer" class="form-label">Carrera</label> <select class="form-select" aria-label="Seleccionar"
-									id="frmCareer">
-									<option value="AnalisisSistemas">Análisis de Sistemas</option>
-									<option value="ProducionAgraria">Produción Agraria</option>
+								<label for="frmCareer" class="form-label">Carrera</label> <select
+									class="form-select" aria-label="Seleccionar" id="frmCareer">
+									<option value="Analisis de Sistemas">Analisis de Sistemas</option>
+									<option value="Producion Agraria">Producion Agraria</option>
 								</select>
 							</div>
 
@@ -159,12 +159,13 @@
 				</div>
 			</div>
 		</div>
+	</div>
 
-				<!-- 	Script para gestionar las funciones de esta vista -->
-				<script type="text/javascript" src="js/student.js"></script>
-				<script type="text/javascript" src="js/studentExportaciones.js"></script>
-				<script type="text/javascript" src="js/studentValidation.js"></script>
+	<!-- 	Script para gestionar las funciones de esta vista -->
+	<script type="text/javascript" src="js/student.js"></script>
+	<script type="text/javascript" src="js/studentExportaciones.js"></script>
+	<script type="text/javascript" src="js/studentValidation.js"></script>
 
-				<%@include file="component/allscript.jsp"%>
+	<%@include file="component/allscript.jsp"%>
 </body>
 </html>

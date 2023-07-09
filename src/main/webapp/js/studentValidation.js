@@ -203,19 +203,6 @@ btnCancel.addEventListener("click", function() {
 	showFloatingAlert("Cancelado con \u00c9xito", "success");
 });
 
-btnSave.addEventListener("click", function() {
-	// Verifica si todos los campos están completos antes de mostrar el mensaje de éxito
-	const names = document.getElementById("frmNames").value;
-	const lastname = document.getElementById("frmLastname").value;
-	const documentNumber = document.getElementById("frmDocument_number").value;
-
-	if (names && lastname && documentNumber) {
-		showFloatingAlert("Guardado con \u00E9xito", "success");
-	} else {
-		showFloatingAlert("No se pudo guardar. Todos los campos son obligatorios", "error");
-	}
-});
-
 // Validacion para correo 
 // Obtener el elemento del input de correo electrónico
 var emailInput = document.getElementById('frmEmail');
@@ -234,14 +221,13 @@ function validarCorreo() {
 	if (correo === '') {
 		// El campo está vacío
 		emailInput.setCustomValidity('No se aceptan campos vac\u00EDos');
-		document.getElementById('errorEmail').textContent = 'No se aceptan campos vac\u00EDos';
+		document.getElementById('errorEmail').textContent = '';
 		quitarIconoCheck();
 		return;
 	}
 
 	// Expresión regular para validar el formato del correo electrónico
-	var expresionRegular = /^[\w.-]+@(gmail|hotmail|outlook|yahoo)\.com$/;
-
+	var expresionRegular = /^[\w.-]+@(gmail|hotmail|outlook|yahoo|vallegrande\.edu.pe|.+\.com)$/i;
 	// Verificar si el correo electrónico cumple con el formato esperado
 	if (expresionRegular.test(correo)) {
 		// El correo electrónico es válido
@@ -262,7 +248,7 @@ function validarCorreo() {
 
 // Función para agregar el icono de verificación
 function agregarIconoCheck() {
-	checkIcon.className = 'bi bi-check-circle text-success';
+	checkIcon.className = '';
 	emailInput.parentNode.appendChild(checkIcon);
 }
 
@@ -272,3 +258,78 @@ function quitarIconoCheck() {
 		checkIcon.parentNode.removeChild(checkIcon);
 	}
 }
+
+
+// Obtener el campo de contraseña
+// Obtener el campo de contraseña
+var passwordField = document.getElementById("frmPasswords");
+
+// Establecer la longitud máxima de la contraseña
+passwordField.maxLength = 20;
+
+// Agregar un evento de escucha al campo de contraseña
+passwordField.addEventListener("input", function() {
+	// Obtener el valor de la contraseña
+	var password = passwordField.value;
+
+	// Expresión regular para validar la contraseña
+	var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{5,20}$/;
+
+	// Verificar si la contraseña cumple con los requisitos
+	if (passwordPattern.test(password)) {
+		// La contraseña es válida
+		passwordField.classList.remove("is-invalid");
+		passwordField.classList.add("is-valid");
+		document.getElementById("errorPasswords").textContent = "";
+	} else {
+		// La contraseña es inválida
+		passwordField.classList.remove("is-valid");
+		passwordField.classList.add("is-invalid");
+		document.getElementById("errorPasswords").textContent = "La contrase\u00F1a debe incluir may\u00FAscula, caracteres especiales y n\u00FAmeros";
+	}
+});
+
+
+
+
+// Obtén el botón "Guardar"
+// Agrega un controlador de eventos a los campos relevantes
+documentNumberInput.addEventListener("input", toggleSaveButtonState);
+inputNombres.addEventListener("input", toggleSaveButtonState);
+inputApellidos.addEventListener("input", toggleSaveButtonState);
+emailInput.addEventListener("input", toggleSaveButtonState);
+passwordField.addEventListener("input", toggleSaveButtonState);
+
+// Función para alternar el estado del botón "Guardar"
+function toggleSaveButtonState() {
+	// Obtén el valor de los campos relevantes
+	const documentNumberValue = documentNumberInput.value.trim();
+	const nombresValue = inputNombres.value.trim();
+	const apellidosValue = inputApellidos.value.trim();
+	const emailValue = emailInput.value.trim();
+	const passwordValue = passwordField.value.trim();
+
+	// Verifica si todos los campos tienen valores válidos
+	const isFormValid =
+		documentNumberValue !== "" &&
+		nombresValue !== "" &&
+		apellidosValue !== "" &&
+		emailValue !== "" &&
+		passwordValue !== "" &&
+		documentNumberInput.classList.contains("is-valid") &&
+		inputNombres.classList.contains("is-valid") &&
+		inputApellidos.classList.contains("is-valid") &&
+		emailInput.checkValidity() &&
+		passwordField.classList.contains("is-valid");
+
+	// Habilita o deshabilita el botón "Guardar" según el estado del formulario
+	if (isFormValid) {
+		btnSave.disabled = false;
+	} else {
+		btnSave.disabled = true;
+	}
+}
+
+
+
+

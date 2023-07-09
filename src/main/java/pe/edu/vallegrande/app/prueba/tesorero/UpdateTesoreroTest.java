@@ -9,12 +9,12 @@ public class UpdateTesoreroTest {
             // Crear objeto de estudiante
             tesorero tesorer = new tesorero();
             tesorer.setAdministrative_id(5); // ID del estudiante a actualizar
-            tesorer.setNames("Juan");
-            tesorer.setLastname("Chavez");
-            tesorer.setEmail("juan.p@vallegrande.edu.pe");
+            tesorer.setNames("Roberto Owen");
+            tesorer.setLastname("Mendoza Chavez");
+            tesorer.setEmail("roberto.mendeza@vallegrande.edu.pe");
             tesorer.setDocument_type("DNI");
-            tesorer.setDocument_number("63438792");
-            tesorer.setPasswords("2023gart");
+            tesorer.setDocument_number("63781874");
+            tesorer.setPasswords("roberto2023");
             tesorer.setActive("A");
 
             // Instanciar el servicio de estudiantes
@@ -24,9 +24,9 @@ public class UpdateTesoreroTest {
             tesoreroService.update(tesorer);
 
             // Mostrar mensaje de éxito
-            System.out.println("tesorero actualizado correctamente.");
+            System.out.println("Administrador actualizado correctamente.");
         } catch (Exception e) {
-            System.err.println("No se pudo tesorero el estudiante: " + e.getMessage());
+            System.err.println("No se pudo tesorero el administrador: " + e.getMessage());
         }
     }
 }

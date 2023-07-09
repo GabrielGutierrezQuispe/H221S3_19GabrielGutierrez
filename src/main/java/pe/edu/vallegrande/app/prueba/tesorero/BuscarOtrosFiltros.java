@@ -11,8 +11,9 @@ public class BuscarOtrosFiltros {
 		try {
 			// Datos
 			tesorero bean = new tesorero();
-			bean.setNames("  Jose   ");
-			bean.setLastname("    ");
+			bean.setNames("     "); //Jose
+			bean.setLastname("    "); // Cama
+			bean.setDocument_number(" 56743973 "); // 56743973
 			// Proceso
 			CrudTesoreroService TesoreroService = new CrudTesoreroService();
 			List<tesorero> lista = TesoreroService.get(bean);

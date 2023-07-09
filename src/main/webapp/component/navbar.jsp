@@ -21,7 +21,7 @@
 
                      <a href="tesorero.jsp" class="nav__link">
                          <i class='bx bxs-user-detail nav__icon'></i>
-                         <span class="nav__name">Tesorero</span>
+                         <span class="nav__name">Administrador</span>
                      </a>
                      <a href="student.jsp" class="nav__link">
                          <i class='bx bxs-user nav__icon'></i>

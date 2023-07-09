@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import pe.edu.vallegrande.app.model.Student;
 import pe.edu.vallegrande.app.model.tesorero;
 import pe.edu.vallegrande.app.service.CrudTesoreroService;
 
@@ -50,25 +49,25 @@ public class TesoreroController extends HttpServlet {
 	private void procesar(HttpServletRequest request, HttpServletResponse response) {
 		// Datos
 		String accion = request.getParameter("accion");
-		Student bean = new Student();
+		tesorero bean = new tesorero();
 
 		// Validar y convertir los campos numéricos solo si no están vacíos
 		if (request.getParameter("administrative_id") != ControllerUtil.STRING_EMPTY) {
-			bean.setStudent_id(Integer.parseInt(request.getParameter("administrative_id")));
+			bean.setAdministrative_id(Integer.parseInt(request.getParameter("administrative_id")));
 		}
 		bean.setNames(request.getParameter("names"));
 		bean.setLastname(request.getParameter("lastname"));
 		bean.setEmail(request.getParameter("email"));
 		bean.setDocument_type(request.getParameter("document_type"));
 		bean.setDocument_number(request.getParameter("document_number"));
-		bean.setSemester(request.getParameter("passwords"));
+		bean.setPasswords(request.getParameter("passwords"));
 		// proceso
 		try {
 			switch (accion) {
 				case ControllerUtil.CRUD_NUEVO:
-					service.insert(null);
+					service.insert(bean);
 				case ControllerUtil.CRUD_EDITAR:
-					service.update(null);
+					service.update(bean);
 					break;
 			}
 			ControllerUtil.responseJson(response, "administrative procesado con exito");

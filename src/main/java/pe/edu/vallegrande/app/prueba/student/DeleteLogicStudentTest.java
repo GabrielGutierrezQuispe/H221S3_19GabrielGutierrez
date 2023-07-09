@@ -5,13 +5,13 @@ import pe.edu.vallegrande.app.service.CrudStudentService;
 public class DeleteLogicStudentTest {
     public static void main(String[] args) {
         try {
-            String studentId = "5"; // ID del estudiante a eliminar
+            Integer student_id = 1; // ID del estudiante a eliminar
 
             // Instanciar el servicio de estudiantes
-            CrudStudentService studentService = new CrudStudentService();
+            CrudStudentService studentS = new CrudStudentService();
 
             // Eliminar estudiante
-            studentService.delete(studentId);
+            studentS.delete(student_id);
 
             // Mostrar mensaje de éxito
             System.out.println("Estudiante eliminado lógicamente.");

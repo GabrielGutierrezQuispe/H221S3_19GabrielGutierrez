@@ -11,8 +11,11 @@ public class BuscarOtrosFiltros {
 		try {
 			// Datos
 			Student bean = new Student();
-			bean.setNames("  Jose   ");
-			bean.setLastname("    ");
+			bean.setNames("     "); //Mario
+			bean.setLastname("    ");  //Gutierrez
+			bean.setDocument_number("   "); //56743973
+			bean.setSemester("  "); // I, II, III, IV, V
+			bean.setCareer(" Análisis de Sistemas "); // Análisis de Sistemas o Producion Agraria
 			// Proceso
 			CrudStudentService studentService = new CrudStudentService();
 			List<Student> lista = studentService.get(bean);

@@ -1,7 +1,7 @@
 <header class="header">
 	<div class="header__container">
 		<img src="image/perfil.jpg" alt="" class="header__img"> 
-		<a href="#" class="header__logo">H221S3_19GabrielGutierrez</a>
+		<a href="https://www.linkedin.com/in/gabrielegutierrez/" class="header__logo">Gabriel Gutierrez</a>
 
 <!-- 		<div class="header__search"> -->
 <!-- 			<input type="search" placeholder="Search" class="header__input"> -->
