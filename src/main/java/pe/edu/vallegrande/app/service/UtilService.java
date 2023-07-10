@@ -1,5 +1,6 @@
 package pe.edu.vallegrande.app.service;
 
+
 public class UtilService {
 
 	private UtilService() {
@@ -12,5 +13,4 @@ public class UtilService {
 		dato = dato.trim(); // Para pensarlo
 		return dato;
 	}
-	
 }

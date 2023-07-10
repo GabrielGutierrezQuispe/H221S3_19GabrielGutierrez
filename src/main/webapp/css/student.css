@@ -31,3 +31,15 @@
 
 
 /*Relos*/
+
+.security-low {
+    border-color: red;
+  }
+
+  .security-medium {
+    border-color: orange;
+  }
+
+  .security-high {
+    border-color: green;
+  }

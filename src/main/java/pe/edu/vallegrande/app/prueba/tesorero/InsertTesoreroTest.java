@@ -8,12 +8,12 @@ public class InsertTesoreroTest {
         try {
             // Crear objeto de estudiante
             tesorero tesorer = new tesorero();
-            tesorer.setNames("Juan");
-            tesorer.setLastname("Pérez");
-            tesorer.setEmail("juan.perez@vallegrande.edu.pe");
+            tesorer.setNames("Bartolomeo Max");
+            tesorer.setLastname("Quispe Elguera");
+            tesorer.setEmail("bartolomeo.quispe@vallegrande.edu.pe");
             tesorer.setDocument_type("DNI");
-            tesorer.setDocument_number("32114753");
-            tesorer.setPasswords("madrid2023");
+            tesorer.setDocument_number("97834781");
+            tesorer.setPasswords("bartolomeo2023");
             tesorer.setActive("A");
 
             // Instanciar el servicio de estudiantes
@@ -23,9 +23,9 @@ public class InsertTesoreroTest {
             tesoreroService.insert(tesorer);
 
             // Mostrar mensaje de éxito
-            System.out.println("tesorero insertado correctamente. ID: " + tesorer.getAdministrative_id());
+            System.out.println("Administrador insertado correctamente. ID: " + tesorer.getAdministrative_id());
         } catch (Exception e) {
-            System.err.println("No se pudo insertar el tesorero: " + e.getMessage());
+            System.err.println("No se pudo insertar el administrador: " + e.getMessage());
         }
     }
 }

@@ -277,7 +277,20 @@ function fnCargarForm(student_id) {
 		document.getElementById("frmEmail").value = estudiante.email;
 		document.getElementById("frmDocument_type").value = estudiante.document_type;
 		document.getElementById("frmDocument_number").value = estudiante.document_number;
-		document.getElementById("frmSemester").value = estudiante.semester;
+
+		// Obtener el campo de selección de semestre
+		let frmSemesterSelect = document.getElementById("frmSemester");
+		// Recorrer las opciones del campo de selección
+		for (let i = 0; i < frmSemesterSelect.options.length; i++) {
+			let option = frmSemesterSelect.options[i];
+			// Comparar el valor de la opción con el semestre del estudiante
+			if (option.value === estudiante.semester) {
+				// Establecer el atributo 'selected' en 'true' para seleccionar la opción correspondiente
+				option.selected = true;
+				break;
+			}
+		}
+
 		document.getElementById("frmCareer").value = estudiante.career;
 	} else {
 		console.log("Estudiante no encontrado");
@@ -289,10 +302,7 @@ function fnLimpiarForm() {
 	document.getElementById("frmNames").value = "";
 	document.getElementById("frmLastname").value = "";
 	document.getElementById("frmEmail").value = "";
-	document.getElementById("frmDocument_type").value = "";
 	document.getElementById("frmDocument_number").value = "";
-	document.getElementById("frmSemester").value = "";
-	document.getElementById("frmCareer").value = "";
 }
 
 // Obtener referencia al formulario

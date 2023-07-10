@@ -9,13 +9,13 @@ public class GetForIdTesoreroTest {
             CrudTesoreroService tesoreroService = new CrudTesoreroService();
             tesorero bean = tesoreroService.getForId("1");
             if (bean != null) {
-                System.out.println("Se encontró el siguiente tesorero:");
+                System.out.println("Se encontró el siguiente administrador:");
                 System.out.println(bean);
             } else {
-                System.out.println("No se encontró ningún tesorero con el ID especificado.");
+                System.out.println("No se encontró ningún administrador con el ID especificado.");
             }
         } catch (Exception e) {
-            System.err.println("No se pudo obtener el tesorero por su ID: " + e.getMessage());
+            System.err.println("No se pudo obtener el administrador por su ID: " + e.getMessage());
         }
     }
 }

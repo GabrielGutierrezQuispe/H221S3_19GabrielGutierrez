@@ -126,16 +126,24 @@ public class CrudTesoreroService implements CrudServiceSpec<tesorero>, RowMapper
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				item = mapRow(rs);
-				lista.add(bean);
+				lista.add(item); // Fix: Add 'item' instead of 'bean' to the list
 			}
-			rs.close();
-			pstm.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		} finally {
 			try {
-				cn.close();
-			} catch (Exception e2) {
+				// Close result set, prepared statement, and connection in a proper order
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstm != null) {
+					pstm.close();
+				}
+				if (cn != null) {
+					cn.close();
+				}
+			} catch (SQLException e2) {
+				e2.printStackTrace();
 			}
 		}
 		return lista;
@@ -192,40 +200,27 @@ public class CrudTesoreroService implements CrudServiceSpec<tesorero>, RowMapper
 			}
 		}
 	}
-	
+
 	public List<tesorero> searchByFilter(String filter, String documentType, String active) {
 		// Variables
 		Connection cn = null;
-		
+
 		List<tesorero> tesoreros = new ArrayList<>();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		tesorero tesorero;
-		
-		String sql = "SELECT "
-				+ "	administrative_id,"
-				+ "	names,"
-				+ "	lastname,"
-				+ "	email,"
-				+ "	document_type,"
-				+ "	document_number,"
-				+ "	passwords,"
-				+ "	active "
-				+ "FROM administrative "
-				+ "WHERE active = ? "
-				+ "	AND document_type LIKE ?"
-				+ "	AND (names LIKE ?"
-				+ "	OR lastname LIKE ?"
-				+ "	OR email LIKE ?"
-				+ "	OR document_number LIKE ?"
-				+ " OR passwords LIKE ?)";
+
+		String sql = "SELECT " + "	administrative_id," + "	names," + "	lastname," + "	email," + "	document_type,"
+				+ "	document_number," + "	passwords," + "	active " + "FROM administrative " + "WHERE active = ? "
+				+ "	AND document_type LIKE ?" + "	AND (names LIKE ?" + "	OR lastname LIKE ?" + "	OR email LIKE ?"
+				+ "	OR document_number LIKE ?" + " OR passwords LIKE ?)";
 
 		// Proceso
 		try {
 			// Conexion
 			cn = AccesoDB.getConnection();
 			pstm = cn.prepareStatement(sql);
-			
+
 			pstm.setString(1, active);
 			pstm.setString(2, "%" + documentType + "%");
 			pstm.setString(3, "%" + filter + "%");
@@ -233,7 +228,7 @@ public class CrudTesoreroService implements CrudServiceSpec<tesorero>, RowMapper
 			pstm.setString(5, "%" + filter + "%");
 			pstm.setString(6, "%" + filter + "%");
 			pstm.setString(7, "%" + filter + "%");
-			
+
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				tesorero = mapRow(rs);
@@ -324,7 +319,8 @@ public class CrudTesoreroService implements CrudServiceSpec<tesorero>, RowMapper
 			e.printStackTrace();
 		}
 	}
-	//Activado de estudiantes (la resurreccion de freezer)
+
+	// Activado de estudiantes (la resurreccion de freezer)
 	public void active(Integer administrative_id) {
 		// Variables
 		Connection cn = null;
@@ -439,7 +435,8 @@ public class CrudTesoreroService implements CrudServiceSpec<tesorero>, RowMapper
 				tesorer.setAdministrative_id(resultSet.getInt("administrative_id"));
 				tesorer.setNames(resultSet.getString("names"));
 				tesorer.setLastname(resultSet.getString("lastname"));
-				tesorer.setEmail(resultSet.getString("email"));;
+				tesorer.setEmail(resultSet.getString("email"));
+				;
 				tesorer.setDocument_type(resultSet.getString("document_type"));
 				tesorer.setDocument_number(resultSet.getString("document_number"));
 				tesorer.setPasswords(resultSet.getString("passwords"));
@@ -574,6 +571,7 @@ public class CrudTesoreroService implements CrudServiceSpec<tesorero>, RowMapper
 		}
 		return tesoreroList;
 	}
+
 	// Eliminado
 	@Override
 	public void delete(String id) {
@@ -604,36 +602,23 @@ public class CrudTesoreroService implements CrudServiceSpec<tesorero>, RowMapper
 	public List<tesorero> searchByFil(String filter, String documentType, String active) {
 		// Variables
 		Connection cn = null;
-		
+
 		List<tesorero> tesoreros = new ArrayList<>();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		tesorero tesorer;
-		
-		String sql = "SELECT "
-				+ "	administrative_id,"
-				+ "	names,"
-				+ "	lastname,"
-				+ "	email,"
-				+ "	document_type,"
-				+ "	document_number,"
-				+ "	passwords,"
-				+ "	active "
-				+ "FROM administrative "
-				+ "WHERE active = ? "
-				+ "	AND document_type LIKE ?"
-				+ "	AND (names LIKE ?"
-				+ "	OR lastname LIKE ?"
-				+ "	OR email LIKE ?"
-				+ "	OR document_number LIKE ?"
-				+ " OR passwords LIKE ?)";
+
+		String sql = "SELECT " + "	administrative_id," + "	names," + "	lastname," + "	email," + "	document_type,"
+				+ "	document_number," + "	passwords," + "	active " + "FROM administrative " + "WHERE active = ? "
+				+ "	AND document_type LIKE ?" + "	AND (names LIKE ?" + "	OR lastname LIKE ?" + "	OR email LIKE ?"
+				+ "	OR document_number LIKE ?" + " OR passwords LIKE ?)";
 
 		// Proceso
 		try {
 			// Conexion
 			cn = AccesoDB.getConnection();
 			pstm = cn.prepareStatement(sql);
-			
+
 			pstm.setString(1, active);
 			pstm.setString(2, "%" + documentType + "%");
 			pstm.setString(3, "%" + filter + "%");
@@ -641,7 +626,7 @@ public class CrudTesoreroService implements CrudServiceSpec<tesorero>, RowMapper
 			pstm.setString(5, "%" + filter + "%");
 			pstm.setString(6, "%" + filter + "%");
 			pstm.setString(7, "%" + filter + "%");
-			
+
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				tesorer = mapRow(rs);
@@ -661,6 +646,3 @@ public class CrudTesoreroService implements CrudServiceSpec<tesorero>, RowMapper
 	}
 
 }
-
-
-

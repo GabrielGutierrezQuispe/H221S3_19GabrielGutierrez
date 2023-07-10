@@ -1,11 +1,7 @@
 package pe.edu.vallegrande.app.service.spec;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
-import pe.edu.vallegrande.app.model.Student;
-import pe.edu.vallegrande.app.model.tesorero;
 
 public interface CrudServiceSpec<T> {
 	
