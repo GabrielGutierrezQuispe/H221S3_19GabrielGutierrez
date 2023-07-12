@@ -183,8 +183,8 @@ INSERT INTO administrative
 		(names, lastname,email, document_number,passwords)
 VALUES
 		('Henry Gustavo', 'Hinostroza Gutierrez','ghistroza@vallegrande.edu.pe', '56237238','henry2023'),
-		('Gabriel Esteban', 'Santos Pablo','spablo@vallegrande.edu.pe', '527387439','santos2023'),
-		('Luis Owen', 'Huaman Bermat','lhuman@vallegrande.edu.pe', '6723893','luis2023'),
+		('Gabriel Esteban', 'Santos Pablo','spablo@vallegrande.edu.pe', '52738749','santos2023'),
+		('Luis Owen', 'Huaman Bermat','lhuman@vallegrande.edu.pe', '67238932','luis2023'),
 		('Sebastian', 'Hinostroza Luyo','shinostroza@vallegrande.edu.pe', '43749501','sebastian2023')
 
 	GO		
